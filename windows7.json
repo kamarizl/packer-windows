@@ -20,7 +20,8 @@
         "floppy/Autounattend.xml",
         "floppy/enable-winrm.bat",
         "floppy/fixnetwork.ps1",
-        "floppy/oracle-cert.cer"
+        "floppy/oracle-cert.cer",
+        "floppy/guest-addition.bat"
       ],
       "vboxmanage": [
         ["modifyvm", "{{ .Name }}", "--memory", "4096"],
