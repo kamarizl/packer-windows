@@ -1,0 +1,54 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-windows-iso",
+      "vm_name": "windows7",
+      "iso_url": "iso/Windows7Ultimate.iso",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "82dbc39ead33156ffbf538de68d74e49",
+      "guest_os_type": "Windows7_64",
+      "boot_wait": "2m",
+      "headless": false,
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_wait_timeout": "20m",
+      "shutdown_timeout": "1h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "disk_size": 20000,
+      "format": "ova",
+      "floppy_files": [
+        "floppy/Autounattend.xml",
+        "floppy/enable-winrm.bat",
+        "floppy/fixnetwork.ps1",
+        "floppy/oracle-cert.cer"
+      ],
+      "vboxmanage": [
+        ["modifyvm", "{{ .Name }}", "--memory", "4096"],
+        ["modifyvm", "{{ .Name }}", "--cpus", "2"]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "powershell",
+      "scripts": [
+        "scripts/chocolatey.ps1"
+      ]
+    },
+    {
+      "type": "windows-shell",
+      "scripts": [
+        "scripts/guest-addition.bat"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "compression_level": 1,
+      "output": "box/windows7.box",
+      "vagrantfile_template": "tpl/Vagrantfile.template"
+    }
+  ]
+}
