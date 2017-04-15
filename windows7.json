@@ -21,7 +21,8 @@
         "floppy/enable-winrm.bat",
         "floppy/fixnetwork.ps1",
         "floppy/oracle-cert.cer",
-        "floppy/guest-addition.bat"
+        "floppy/guest-addition.bat",
+        "floppy/chocolatey.ps1"
       ],
       "vboxmanage": [
         ["modifyvm", "{{ .Name }}", "--memory", "4096"],
@@ -31,13 +32,7 @@
   ],
   "provisioners": [
     {
-      "type": "powershell",
-      "scripts": [
-        "scripts/chocolatey.ps1"
-      ]
-    },
-    {
-      "type": "windows-shell",
+      "type": "shell",
       "scripts": [
         "scripts/guest-addition.bat"
       ]

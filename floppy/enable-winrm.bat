@@ -45,3 +45,6 @@ cmd.exe /c wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE
 
 :: install chocolatey
 :: powershell -File a:\chocolatey.ps1
+
+:: install guest addition
+:: cmd.exe /c a:\guest-addition.bat

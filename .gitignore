@@ -1,3 +1,4 @@
+output-virtualbox-windows-iso/
 .vagrant/
 packer_cache/
 *.box
