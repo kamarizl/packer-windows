@@ -44,3 +44,4 @@ cmd.exe /c wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE
 %SystemRoot%\System32\reg.exe add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff"
 
 
+

@@ -86,7 +86,7 @@
             </OOBE>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c a:\bootstrap.bat</CommandLine>
+                    <CommandLine>cmd.exe /c a:\install-winrm.bat</CommandLine>
                     <Description>Bootstraping</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>

@@ -20,20 +20,20 @@
       "boot_wait": "2m",
       "headless": false,
       "winrm_username": "{{ user `username` }}",
-      "winrm_password": "{{ user `password` }}}",
+      "winrm_password": "{{ user `password` }}",
       "winrm_timeout": "30m",
       "shutdown_timeout": "1h",
       "post_shutdown_delay": "180s",
-      "shutdown_command": "shutdown /s /t 2 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "disk_size": "{{ user `disk_size`}}",
       "floppy_files": [
         "floppy/Autounattend.xml",
-        "floppy/bootstrap.bat",
+        "floppy/install-winrm.bat",
         "floppy/fixnetwork.ps1"
       ],
       "vboxmanage": [
-        ["modifyvm", "{{ .Name }}", "--memory", "{{ user `vm_memory` }}"],
-        ["modifyvm", "{{ .Name }}", "--cpus", "{{ user `vm_cpus` }}"]
+        ["modifyvm", "{{ .Name }}", "--memory", "2048"],
+        ["modifyvm", "{{ .Name }}", "--cpus", "2"]
       ],
       "guest_additions_mode": "attach"
     }
