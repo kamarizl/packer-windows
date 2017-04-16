@@ -4,8 +4,8 @@
     "password": "vagrant",
     "disk_size": "20000",
     "vm_name": "windows7",
-    "vm_memory": "4096",
-    "vm_cpus": "2"
+    "vm_memory": "2048",
+    "vm_cpus": "1"
   },
 
   "builders": [
@@ -26,6 +26,7 @@
       "post_shutdown_delay": "180s",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "disk_size": "{{ user `disk_size`}}",
+      "hard_drive_interface": "sata",
       "floppy_files": [
         "floppy/Autounattend.xml",
         "floppy/install-winrm.bat",
