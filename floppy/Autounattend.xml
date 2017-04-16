@@ -86,8 +86,8 @@
             </OOBE>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c a:\enable-winrm.bat</CommandLine>
-                    <Description>Run enable-winrm.bat on drive A:</Description>
+                    <CommandLine>cmd.exe /c a:\bootstrap.bat</CommandLine>
+                    <Description>Bootstraping</Description>
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>

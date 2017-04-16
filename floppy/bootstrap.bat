@@ -43,8 +43,4 @@ cmd.exe /c wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE
 ::Disabling new network prompt
 %SystemRoot%\System32\reg.exe add "HKLM\System\CurrentControlSet\Control\Network\NewNetworkWindowOff"
 
-:: install chocolatey
-:: powershell -File a:\chocolatey.ps1
 
-:: install guest addition
-:: cmd.exe /c a:\guest-addition.bat

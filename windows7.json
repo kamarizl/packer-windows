@@ -1,48 +1,64 @@
 {
+  "variables": {
+    "username": "vagrant",
+    "password": "vagrant",
+    "disk_size": "20000",
+    "vm_name": "windows7",
+    "vm_memory": "4096",
+    "vm_cpus": "2"
+  },
+
   "builders": [
     {
-      "type": "virtualbox-windows-iso",
-      "vm_name": "windows7",
+      "type": "virtualbox-iso",
+      "communicator": "winrm",
+      "vm_name": "{{ user `vm_name` }}",
       "iso_url": "iso/Windows7Ultimate.iso",
       "iso_checksum_type": "md5",
       "iso_checksum": "82dbc39ead33156ffbf538de68d74e49",
       "guest_os_type": "Windows7_64",
       "boot_wait": "2m",
       "headless": false,
-      "winrm_username": "vagrant",
-      "winrm_password": "vagrant",
-      "winrm_wait_timeout": "20m",
+      "winrm_username": "{{ user `username` }}",
+      "winrm_password": "{{ user `password` }}}",
+      "winrm_timeout": "30m",
       "shutdown_timeout": "1h",
-      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "disk_size": 20000,
-      "format": "ova",
+      "post_shutdown_delay": "180s",
+      "shutdown_command": "shutdown /s /t 2 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "disk_size": "{{ user `disk_size`}}",
       "floppy_files": [
         "floppy/Autounattend.xml",
-        "floppy/enable-winrm.bat",
-        "floppy/fixnetwork.ps1",
-        "floppy/oracle-cert.cer",
-        "floppy/guest-addition.bat",
-        "floppy/chocolatey.ps1"
+        "floppy/bootstrap.bat",
+        "floppy/fixnetwork.ps1"
       ],
       "vboxmanage": [
-        ["modifyvm", "{{ .Name }}", "--memory", "4096"],
-        ["modifyvm", "{{ .Name }}", "--cpus", "2"]
-      ]
+        ["modifyvm", "{{ .Name }}", "--memory", "{{ user `vm_memory` }}"],
+        ["modifyvm", "{{ .Name }}", "--cpus", "{{ user `vm_cpus` }}"]
+      ],
+      "guest_additions_mode": "attach"
     }
   ],
+
   "provisioners": [
     {
-      "type": "shell",
-      "scripts": [
-        "scripts/guest-addition.bat"
-      ]
+      "type": "powershell",
+      "script": "scripts/guest_additions.ps1",
+      "elevated_user": "{{ user `username` }}",
+      "elevated_password": "{{ user `password` }}"
+    },
+    {
+      "type": "powershell",
+      "scripts": "scripts/chocolatey.ps1",
+      "elevated_user": "{{ user `username` }}",
+      "elevated_password": "{{ user `password` }}"
     }
   ],
+
   "post-processors": [
     {
       "type": "vagrant",
-      "keep_input_artifact": false,
-      "compression_level": 1,
+      "keep_input_artifact": true,
+      "compression_level": 0,
       "output": "box/windows7.box",
       "vagrantfile_template": "tpl/Vagrantfile.template"
     }

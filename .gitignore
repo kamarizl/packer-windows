@@ -1,5 +1,7 @@
+windows7-base/
 output-virtualbox-windows-iso/
 .vagrant/
 packer_cache/
+.DS_Store
 *.box
 *.iso
